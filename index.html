@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="img/favicon.svg" type="image/x-icon">
+    <title>Cosmo</title>
+    <link rel="stylesheet" href="css/normalize.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/media.css">
+    <script defer src="js/script.js"></script>
+</head>
+<body>
+    <section class="section cards">
+      <div class="container cards__container flex">
+        <form action="" class="form-input flex" >
+          <h1 class="form-input__title">
+            Cosmo
+          </h1>
+          <img class="form-input__img-title" src="img/Cosmo.png" alt="Image title Cosmo">
+          <img class="form-input__img-description" src="img/find_pair_of_planets.png" alt="Image content Cosmo">
+          <div class="form-input__user-input">
+            <label class="form-input__label flex"for="number-col">
+              <img class="form-input__img-input" src="img/Enter_The_Number_Of_Lines_.png" alt="Image enter number">
+              <input class="form-input__input" type="number" name="number-col" min="2" max="10" step="2" value="2">
+            </label>
+            <button class="form-input__submit" type="submit">
+                flew into space
+            </button>
+          </div>
+        </form>
+        <div class="cards__wrapper" style="display: none"></div>
+        <div class="winner flex form-hidden">
+          <img class="winner__won" src="img/Won.png" alt="Image Won">
+          <img class="winner__you-winn" src="img/You_Winn!.png" alt="Image You winn">
+          <button class="winner__again">
+            Fly again
+          </button>
+        </div>
+      </div>
+</section>
+</body>
+</html>

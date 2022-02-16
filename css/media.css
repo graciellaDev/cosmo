@@ -1,0 +1,20 @@
+@media screen and (max-width: 1200px) {
+  .cards__wrapper_col-8 {
+    gap: 15px
+  }
+
+  .cards__wrapper_col-10 {
+    gap: 10px
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .cards__container {
+    height: calc(100% - 20px);
+    padding: 10px;
+  }
+
+  .winner {
+    padding: 100px 0 30px;
+  }
+}
