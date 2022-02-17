@@ -99,7 +99,7 @@ formSubmit.addEventListener('click', function(e) {
   document.querySelectorAll('.col').forEach(function(event) {
     event.addEventListener('click', () => {
       console.log('ddd=' + closeCards)
-      if(Number(closeCards + openCards) == Cards){
+      if(Number(closeCards + openCards) == Cards  && !event.classList.contains('reverse')){
         event.classList.add('reverse')
         closeCards--
         openCards++
