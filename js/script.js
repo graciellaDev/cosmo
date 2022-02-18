@@ -76,10 +76,49 @@ function createCards(wrapper, number, arrayElements) {
 
 let form = document.querySelector('.form-input'),
     formSubmit = document.querySelector('.form-input__submit'),
+    container = document.querySelector('.container'),
     rows,
     Cards,
     closeCards,
-    keyTimeOut
+    keyTimeOut,
+    keyRun,
+    wonDisplay = document.querySelector('.winner__you-winn').style.display,
+    loseDisplay = document.querySelector('.winner__you-lose').style.display
+
+// counter
+function counterTime(element) {
+  console.log('el=' + element)
+  let time = Number(element.textContent),
+  wrapper = document.querySelector('.cards__wrapper')
+  keyRun = setTimeout(function run() {
+    if(time > 0) {
+      keyRed = setTimeout(() => {
+        element.textContent = --time
+        if(!element.classList.contains('count_red') && time < 10) {
+          element.classList.add('count_red')
+        }
+        run()
+      }, 1000)
+    }
+    else {
+      while (wrapper.firstChild) {
+        wrapper.removeChild(wrapper.firstChild);
+        wrapper.classList.remove(`cards__wrapper_col-${rows}`)
+        wrapper.style.display = 'none'
+      }
+      clearTimeout(keyRun)
+      clearTimeout(keyRed)
+      container.querySelector('.count').remove()
+      if(document.querySelector('.winner').classList.contains('form-hidden')) {
+        document.querySelector('.winner').classList.remove('form-hidden')
+      }
+        document.querySelector('.winner__you-winn').style.display = 'none'
+        wonDisplay == 'none'
+        document.querySelector('.winner__you-lose').style.display = 'block'
+        loseDisplay == 'block'
+    }
+  }, 1000)
+}
 
 formSubmit.addEventListener('click', function(e) {
   if(keyTimeOut) {
@@ -87,24 +126,49 @@ formSubmit.addEventListener('click', function(e) {
   }
   e.preventDefault()
   let wrapper = document.querySelector('.cards__wrapper')
-  rows = document.querySelector('.form-input__input').value
+  rows = Number(document.querySelector('.form-input__input').value)
   Cards = rows * rows
   closeCards = Cards
   form.classList.add('form-hidden')
   wrapper.classList.add(`cards__wrapper_col-${rows}`)
   wrapper.style.display = 'grid'
-  createCards(elementWrapper, rows, arrayImages)
+  let divCounter = document.createElement('div')
+  divCounter.classList.add('count')
+  switch(rows) {
+    case 2:
+        divCounter.textContent = 15;
+        break;
+    case 4:
+        divCounter.textContent = 45;
+        break;
+    case 6:
+        divCounter.textContent = 60;
+        break;
+    case 8:
+        divCounter.textContent = 120;
+        break;
+    case 10:
+        divCounter.textContent = 180;
+        break;
+    default:
+        divCounter.textContent = 60;
+  }
+  container.insertBefore(divCounter, wrapper)
+  let timer = document.querySelector('.count')
 
-  let openCards = 0
-  document.querySelectorAll('.col').forEach(function(event) {
+  createCards(elementWrapper, rows, arrayImages)
+  counterTime(timer)
+
+  let openCards = 0,
+      keyTime,
+      keyActive
+  document.querySelectorAll('.col').forEach((event) => {
     event.addEventListener('click', () => {
-      console.log('ddd=' + closeCards)
-      if(Number(closeCards + openCards) == Cards  && !event.classList.contains('reverse')){
+      if(Number(closeCards + openCards) == Cards && !event.classList.contains('reverse')){
         event.classList.add('reverse')
         closeCards--
         openCards++
-        console.log('sum=' + Number(closeCards + openCards))
-        console.log('close=' + closeCards + ' open=' + openCards)
+        console.log('close = ' + closeCards + '; open = ' + openCards)
         if(document.querySelector('.reverse')) {
           let activeCard = document.querySelector('.active-card')
           if(!activeCard) {
@@ -114,9 +178,9 @@ formSubmit.addEventListener('click', function(e) {
             let dataActive = activeCard.querySelector('.col__back').getAttribute('data-card'),
                 data = event.querySelector('.col__back').getAttribute('data-card')
             if(data == dataActive) {
-              setTimeout(() => {
+              keyTime = setTimeout(() => {
                 event.classList.add('active-card')
-                setTimeout(() => {
+                keyActive = setTimeout(() => {
                   activeCard.classList.remove('active-card')
                   event.classList.remove('active-card')
                 }, 500)
@@ -139,6 +203,15 @@ formSubmit.addEventListener('click', function(e) {
               wrapper.classList.remove(`cards__wrapper_col-${rows}`)
               wrapper.style.display = 'none'
           }
+          if(document.querySelector('.count')) {
+            container.querySelector('.count').remove()
+          }
+            document.querySelector('.winner__you-winn').style.display = 'block'
+            wonDisplay = 'block'
+            document.querySelector('.winner__you-lose').style.display = 'none'
+            loseDisplay = 'none'
+          clearTimeout(keyRun)
+          clearTimeout(keyRed)
           document.querySelector('.winner').classList.remove('form-hidden')
         }, 1500)
       }
